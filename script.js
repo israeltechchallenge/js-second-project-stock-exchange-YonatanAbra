@@ -1,32 +1,58 @@
-const searchInput = document.getElementById("globalSearchInput");
-const resultsContainer = document.getElementById("searchList");
-const searchBtn = document.getElementById("globalSearchBtn")
-searchBtn.addEventListener("click", globalSearch);
+const searchButton = document.getElementById("globalSearchBtn");
+const searchList = document.getElementById("searchList");
 
-function globalSearch(){
-    let searchList = document.getElementById("searchList");
+searchButton.addEventListener("click", function (event) {
     let loader = document.getElementById("loader");
     loader.classList.remove("disappear");
-    setTimeout(() => {
-        loader.style.opacity = "0";
-    }, 1200)
-    setTimeout(() => {
-        globalSearchFetch();
-        searchList.style.padding.bottom = "2%";
-        resultsContainer.style.opacity = "1";
-    }, 400)
-}
+    event.preventDefault();
+    searchList.innerHTML = "";
+    getSearchData();
+});
 
-async function globalSearchFetch() {
-  const inputValue = searchInput.value;
-  const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${inputValue}&amp%3Blimit=10&amp%3Bexchange=NASDAQ`);
-  const data = await response.json();
-  const companies = data.slice(0, 10);
-  resultsContainer.innerHTML = '';
+async function getSearchData() {
+    const inputValue = document.getElementById("globalSearchInput").value;
+    const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${inputValue}&amp%3Blimit=10&amp%3Bexchange=NASDAQ`);
+    const data = await response.json();
+    const companies = data.slice(0, 10);
 
   companies.forEach(company => {
-    const result = document.createElement('div');
-    result.innerHTML = `<li><a href="/company.html?symbol=${company.symbol}"> ${company.name} (${company.symbol})</a></li>`;
-    resultsContainer.appendChild(result);
-  });
+    const symbol = company.symbol;
+    getMoreSearchData(symbol);
+    })
+}
+
+async function getMoreSearchData(symbol) {
+  try{
+    const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`);
+    const data = await response.json();
+    console.log(data);
+    listSearchData(data);
+  }catch(error){
+    console.log(error);
+  }
+}
+
+function listSearchData(data) {
+    const profile = data.profile;
+  let loader = document.getElementById("loader");
+  loader.classList.add("disappear");
+
+  const liElement = document.createElement("li");
+  const imgElement = document.createElement("img");
+  const aElement = document.createElement("a");
+  const spanElement = document.createElement("span");
+
+  aElement.textContent = ` ${profile.companyName} (${data.symbol})`;
+  aElement.setAttribute("href", `company.html?symbol=${data.symbol}`);
+  imgElement.setAttribute("src", `${profile.image}`);
+  spanElement.textContent = `(${profile.changes}%)`;
+
+  if (profile.changes >= 0) {
+    spanElement.style.color = "lightgreen";
+  } else {
+    spanElement.style.color = "red";
+  }
+
+  liElement.append(imgElement, aElement, spanElement);
+  searchList.appendChild(liElement);
 }

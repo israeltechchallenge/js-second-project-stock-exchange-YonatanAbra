@@ -10,17 +10,20 @@
     <title>Stock Exchange</title>
 </head>
 <div class="bigContainer">
-
-    <div class="searchContainer">
-        <input type="text" class="globalSearchInput" id="globalSearchInput" placeholder="Search...">
-        <button class="globalSearchBtn" id="globalSearchBtn">Search</button>
-        <span class="spinner-border disappear" id="loader" role="status"></span>
+    <div class="searchContBorder">
+        <div class="searchContainer">
+            <span class="searchTitle">Search Nasdaq Stocks</span>
+            <div class="searchBar">
+                <input type="text" class="globalSearchInput" id="globalSearchInput" placeholder="Search for company stock">
+                <button class="globalSearchBtn" id="globalSearchBtn">Search</button>
+                <span class="spinner-border disappear" id="loader" role="status"></span>
+            </div>
+        </div>
+        <div class="searchList" id="searchList">
+        </div>
     </div>
-        <div class="searchList" id="searchList"></div>
-
 </div>
 <body>
-
     <script src="script.js" ></script>
 </body>
 </html>
