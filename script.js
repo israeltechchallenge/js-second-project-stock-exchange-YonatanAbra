@@ -36,6 +36,8 @@ function listSearchData(data) {
     const profile = data.profile;
   let loader = document.getElementById("loader");
   loader.classList.add("disappear");
+  let changes = profile.changes;
+  const changesNum = changes.toFixed(2);
 
   const liElement = document.createElement("li");
   const imgElement = document.createElement("img");
@@ -45,9 +47,9 @@ function listSearchData(data) {
   aElement.textContent = ` ${profile.companyName} (${data.symbol})`;
   aElement.setAttribute("href", `company.html?symbol=${data.symbol}`);
   imgElement.setAttribute("src", `${profile.image}`);
-  spanElement.textContent = `(${profile.changes}%)`;
+  spanElement.textContent = `(${changesNum}%)`;
 
-  if (profile.changes >= 0) {
+  if (changesNum >= 0) {
     spanElement.style.color = "lightgreen";
   } else {
     spanElement.style.color = "red";
@@ -56,3 +58,40 @@ function listSearchData(data) {
   liElement.append(imgElement, aElement, spanElement);
   searchList.appendChild(liElement);
 }
+
+const symbols = ["AAPL","MSFT","AMZN","GOOG","FB","TSLA","NVDA",
+  "PYPL","ADBE","NFLX","CMCSA","CSCO","PEP","COST","INTC",
+  "AVGO","TXN","ADP","TMUS","QCOM"
+];
+
+function fetchMarquee(){
+fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/stock-screener?/${symbols}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+      const tickerElement = document.getElementById('tickerList');
+      let tickerContent = '';
+      for (let stock of data) {
+        tickerContent += 
+        `<li class="marqueeListItem"> 
+            <span>${stock.companyName} (${stock.symbol})</span>
+            <span> $${stock.price}<span>
+        </li>`;
+      }
+      tickerElement.innerHTML = tickerContent;
+    })
+    .catch(error => {
+      console.error('Error fetching stock data:', error);
+    })};
+
+const tickerList = document.getElementById("tickerList");
+
+tickerList.addEventListener("mouseenter", () => {
+  tickerList.style.animationPlayState = "paused";
+});
+
+tickerList.addEventListener("mouseleave", () => {
+  tickerList.style.animationPlayState = "running";
+});
+
+fetchMarquee();

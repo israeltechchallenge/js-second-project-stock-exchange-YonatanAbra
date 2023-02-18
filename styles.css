@@ -143,3 +143,59 @@ li:nth-child(-n+5):active{
 li:nth-last-child(-n+5):active{
     background-color: #ae1f127a;
 }
+
+
+/*marquee effect*/
+.marqueeContainer {
+    overflow: hidden;
+    background-color: #AE2012;
+}
+.marqueeList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 3000s linear infinite;
+}
+.marqueeListItem{
+    display:  inline-block;
+    flex-direction: row;
+    list-style: none;
+    border-left: #005F73 solid 1px;
+    border-right: #005F73 solid 1px;
+    border-bottom: #005F73 solid 7px;
+    margin-left: 0px;
+    min-width: 150px;
+}
+.marqueeListItem > span{
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    color: #94D2BD;
+    cursor: pointer;
+}
+.marqueeListItem > :nth-child(2){
+    color: #001219;
+}
+.marqueeList:hover{
+    animation-play-state: paused;
+}
+.marqueeListItem:hover > :nth-child(1){
+    color: #EE9B00;
+}
+.marqueeListItem:nth-child(-n+5):hover {
+    background-color:#ae1f127a;
+    cursor: pointer;
+}
+
+  
+@keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+}
+
