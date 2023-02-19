@@ -112,7 +112,9 @@ body{
     flex-direction: column;
     padding-top: 10px;
     grid-area:searchList;
-}
+    max-height: 400px; /* Set the height of the list container */
+    overflow: auto; /* Set the overflow property to scroll */
+  }
 li{
     list-style: none;
     padding: 10px;

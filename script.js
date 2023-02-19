@@ -25,7 +25,6 @@ async function getMoreSearchData(symbol) {
   try{
     const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`);
     const data = await response.json();
-    console.log(data);
     listSearchData(data);
   }catch(error){
     console.log(error);
@@ -34,31 +33,46 @@ async function getMoreSearchData(symbol) {
 
 function listSearchData(data) {
     const profile = data.profile;
-  let loader = document.getElementById("loader");
-  loader.classList.add("disappear");
-  let changes = profile.changes;
-  const changesNum = changes.toFixed(2);
+    let loader = document.getElementById("loader");
+    loader.classList.add("disappear");
+    let changes = profile.changes;
+    const changesNum = changes.toFixed(2);
 
-  const liElement = document.createElement("li");
-  const imgElement = document.createElement("img");
-  const aElement = document.createElement("a");
-  const spanElement = document.createElement("span");
+    const liElement = document.createElement("li");
+    const imgElement = document.createElement("img");
+    const aElement = document.createElement("a");
+    const spanElement = document.createElement("span");
 
-  aElement.textContent = ` ${profile.companyName} (${data.symbol})`;
-  aElement.setAttribute("href", `company.html?symbol=${data.symbol}`);
-  imgElement.setAttribute("src", `${profile.image}`);
-  spanElement.textContent = `(${changesNum}%)`;
+    aElement.textContent = ` ${profile.companyName} (${data.symbol})`;
+    aElement.setAttribute("href", `company.html?symbol=${data.symbol}`);
+    imgElement.setAttribute("src", `${profile.image}`);
+    spanElement.textContent = `(${changesNum}%)`;
 
-  if (changesNum >= 0) {
-    spanElement.style.color = "lightgreen";
-  } else {
-    spanElement.style.color = "red";
-  }
+    if (changesNum >= 0) {
+      spanElement.style.color = "lightgreen";
+    } else {
+      spanElement.style.color = "red";
+    }
 
-  liElement.append(imgElement, aElement, spanElement);
-  searchList.appendChild(liElement);
+    liElement.append(imgElement, aElement, spanElement);
+    searchList.appendChild(liElement);
 }
+//debounce function
+const searchInput = document.getElementById("globalSearchInput");
+let timeoutId;
 
+function debounce(func, delay) {
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+}
+searchInput.addEventListener("input", debounce(getSearchData, 300));
+//marquee function
 const symbols = ["AAPL","MSFT","AMZN","GOOG","FB","TSLA","NVDA",
   "PYPL","ADBE","NFLX","CMCSA","CSCO","PEP","COST","INTC",
   "AVGO","TXN","ADP","TMUS","QCOM"
@@ -68,7 +82,6 @@ function fetchMarquee(){
 fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/stock-screener?/${symbols}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
       const tickerElement = document.getElementById('tickerList');
       let tickerContent = '';
       for (let stock of data) {
