@@ -99,9 +99,7 @@ fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/ap
 
 const tickerList = document.getElementById("tickerList");
 
-tickerList.addEventListener("mouseenter", () => {
-  tickerList.style.animationPlayState = "paused";
-});
+tickerList.addEventListener("mouseenter", () => tickerList.style.animationPlayState = "paused")
 
 tickerList.addEventListener("mouseleave", () => {
   tickerList.style.animationPlayState = "running";
