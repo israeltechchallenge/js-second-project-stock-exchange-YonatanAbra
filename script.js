@@ -1,35 +1,22 @@
 const searchButton = document.getElementById("globalSearchBtn");
 const searchList = document.getElementById("searchList");
+let baseUrl = "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3"
 
-searchButton.addEventListener("click", function (event) {
-    let loader = document.getElementById("loader");
-    loader.classList.remove("disappear");
-    event.preventDefault();
-    searchList.innerHTML = "";
-    getSearchData();
-});
+const searchInput = document.getElementById("globalSearchInput");
+let timeoutId;
 
-async function getSearchData() {
-    const inputValue = document.getElementById("globalSearchInput").value;
-    const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${inputValue}&amp%3Blimit=10&amp%3Bexchange=NASDAQ`);
-    const data = await response.json();
-    const companies = data.slice(0, 10);
-
-  companies.forEach(company => {
-    const symbol = company.symbol;
-    getMoreSearchData(symbol);
-    })
+function debounce(func, delay) {
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      searchList.innerHTML = "";
+      func.apply(context, args);
+    }, delay);
+  };
 }
-
-async function getMoreSearchData(symbol) {
-  try{
-    const response = await fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`);
-    const data = await response.json();
-    listSearchData(data);
-  }catch(error){
-    console.log(error);
-  }
-}
+searchInput.addEventListener("input", debounce(getSearchData, 300));
 
 function listSearchData(data) {
     const profile = data.profile;
@@ -57,54 +44,35 @@ function listSearchData(data) {
     liElement.append(imgElement, aElement, spanElement);
     searchList.appendChild(liElement);
 }
-//debounce function
-const searchInput = document.getElementById("globalSearchInput");
-let timeoutId;
 
-function debounce(func, delay) {
-  return function() {
-    const context = this;
-    const args = arguments;
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func.apply(context, args);
-    }, delay);
-  };
-}
-searchInput.addEventListener("input", debounce(getSearchData, 300));
-//marquee function
-const symbols = ["AAPL","MSFT","AMZN","GOOG","FB","TSLA","NVDA",
-  "PYPL","ADBE","NFLX","CMCSA","CSCO","PEP","COST","INTC",
-  "AVGO","TXN","ADP","TMUS","QCOM"
-];
+async function getMoreSearchData(symbol) {
+    try{
+      const response = await fetch(`${baseUrl}/company/profile/${symbol}`);
+      const data = await response.json();
+      listSearchData(data);
+    }catch(error){
+      console.log(error);
+    }
+  }
 
-function fetchMarquee(){
-fetch(`https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/stock-screener?/${symbols}`)
-    .then(response => response.json())
-    .then(data => {
-      const tickerElement = document.getElementById('tickerList');
-      let tickerContent = '';
-      for (let stock of data) {
-        tickerContent += 
-        `<li class="marqueeListItem"> 
-            <span>${stock.companyName} (${stock.symbol})</span>
-            <span> $${stock.price}<span>
-        </li>`;
-      }
-      tickerElement.innerHTML = tickerContent;
+async function getSearchData() {
+    const inputValue = document.getElementById("globalSearchInput").value;
+    const response = await fetch(`${baseUrl}/search?query=${inputValue}&amp%3Blimit=10&amp%3Bexchange=NASDAQ`);
+    const data = await response.json();
+    const companies = data.slice(0, 10);
+
+  companies.forEach(company => {
+    const symbol = company.symbol;
+    getMoreSearchData(symbol);
     })
-    .catch(error => {
-      console.error('Error fetching stock data:', error);
-    })};
+}
 
-const tickerList = document.getElementById("tickerList");
-
-tickerList.addEventListener("mouseenter", () => {
-  tickerList.style.animationPlayState = "paused";
+searchButton.addEventListener("click", function (event) {
+    let loader = document.getElementById("loader");
+    loader.classList.remove("disappear");
+    event.preventDefault();
+    searchList.innerHTML = "";
+    getSearchData();
 });
 
-tickerList.addEventListener("mouseleave", () => {
-  tickerList.style.animationPlayState = "running";
-});
 
-fetchMarquee();

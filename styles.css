@@ -124,7 +124,7 @@ li:last-child{
     padding-bottom: 0px;
 }
 li > img{
-    width: 40px;
+    max-width: 60px;
     height: 40px;
 }
 li:nth-child(-n+5):hover {
