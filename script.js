@@ -67,7 +67,6 @@ async function getSearchData() {
     })
 }
 
-
 searchButton.addEventListener("click", function (event) {
     let loader = document.getElementById("loader");
     loader.classList.remove("disappear");
@@ -75,9 +74,5 @@ searchButton.addEventListener("click", function (event) {
     searchList.innerHTML = "";
     getSearchData();
 });
-
-const tickerList = document.getElementById("tickerList");
-
-tickerList.addEventListener("mouseenter", () => tickerList.style.animationPlayState = "paused")
 
 
