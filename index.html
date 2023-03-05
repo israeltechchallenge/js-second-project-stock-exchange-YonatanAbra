@@ -11,28 +11,24 @@
     <title>Stock Exchange</title>
 </head>
 <body>
- <div class="marqueeContainer">
-    <ul class="marqueeList" id="tickerList">
-    </ul>
-</div>
-<div class="bigContainer">
-    <div class="searchContBorder">
-        <div class="searchContainer">
-            <span class="searchTitle">Search Nasdaq Stocks</span>
-            <div class="searchBar">
-                <input type="text" class="globalSearchInput" id="globalSearchInput" placeholder="Search for company stock">
-                <button class="globalSearchBtn" id="globalSearchBtn">Search</button>
-                <span class="spinner-border disappear" id="loader" role="status"></span>
-            </div>
-        </div>
-        <div class="searchList" id="searchList">
-        </div>
-    </div>
-</div>
 
-    <script src="script.js" ></script>
-    <script src="marquee.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <div class="marqueeContainer">
+    <ul class="marqueeList" id="tickerList"></ul>
+  </div>
+  <div id="form"></div>
+  <div id="results"></div>
 
+  <script  src="marquee.js"></script>
+  <script src="SearchResults.js" ></script>
+  <script  src="SearchForm.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  (async function () {
+    const marquee = new Marquee(document.getElementById('tickerList'));
+    marquee.fetchMarquee();
+    const form = new SearchForm(document.getElementById('form'));
+    const results = new SearchResult(document.getElementById('results'));
+  })()
+</script>
 </body>
 </html>
