@@ -8,13 +8,14 @@ body{
     background-image: linear-gradient(62deg, #0A9396 0%, #94D2BD 100%);
     background-repeat: no-repeat;
     background-size: cover;
-  }
-  .disappear{
+}
+.disappear{
     display: none;
-  }
-  .searchContBorder{
+}
+.searchContBorder{
     grid-template-columns: 1;
-    grid-template-areas: 
+    grid-template-areas:
+    "compareContainer" 
     "searchBarCont"
     "searchList";
     margin-left:15%;
@@ -31,20 +32,120 @@ body{
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
     transition: all ease 0.1s;
     transition: 0.5s all linear;
-  }
-  .searchContBorder:hover{
+}
+.searchContBorder:hover, .compareGridOne:hover, .compareCompanies > li:hover{
     transform: scale(1.05);
     box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
-  }
-  .searchContainer{
+}
+.compareContainer{
+    display: grid;
+    grid-template-areas: 
+     "firstGrid"
+     "compareList";
+    padding: 5px 10px 5px 10px;
+    margin-top: 20px;
+    grid-area: compareContainer;
+}
+.compareList{
+    grid-area:compareContainer;
+}
+.compareGridOne{
+    display: flex;
+    justify-content: center;
+    gap:20px;
+    margin-top: 20px;
+    border-bottom: 15px solid;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-image-slice: 1;
+    border-width: 5px;
+    border-radius: 25px;
+    transition: 0.5s all linear;
+    background: linear-gradient(45deg, rgba(0, 95, 115, 0.6), rgba(238, 155, 0, 0.6), rgba(202, 103, 2, 0.6), rgba(174, 32, 18, 0.6));  grid-area: firstGrid;
+}
+.compareGridOne > h3{
+    color: #001219;
+    font-size: 30px;
+    letter-spacing: 1.5px;
+    font-family: 'Bebas Neue'; 
+    margin-top: 10px;
+}
+.compareCompanies{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    grid-area: compareList;
+}
+.compareCompanies > li{
+    display:  inline-block;
+    list-style: none;
+    font-size: 14px;
+    color: #005F73;
+    cursor: pointer;
+    border-bottom:solid black 1px;
+    padding: 5px 5px;
+    margin: 10px;
+}
+.removeBtn{
+    margin-left: 10px;
+    padding: 0 8px;
+    background: #EE9B00;
+    color: #005F73;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: all 0.15s ease-in;
+    z-index: 1;
+}
+.removeBtn:hover{
+        color: #E9D8A6;
+        background: #AE2012; 
+}
+.removeBtn:active{
+        color: #E9D8A6;
+        text-decoration: none;
+        background: #005F73;
+        transform: translateY(2px);
+        bottom: 0px;
+}
+.compareBtnBig{
+    width: 90px;
+    height: 50px;
+    background: #EE9B00;
+    color: #005F73;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: all 0.15s ease-in;
+    z-index: 1;
+  
+}
+.compareBtnBig:hover{
+    color: #E9D8A6;
+    background: #AE2012; 
+    transform: scale(1.05);
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+}
+.compareBtnBig:active{
+    color: #E9D8A6;
+    text-decoration: none;
+    background: #005F73;
+}
+.searchContainer{
     display: grid;
     grid-template-rows: 1fr, 1fr;
     grid-template-areas:
     "searchTitle"
     "searchBar";
     grid-area: searchBarCont;
-  }
-  .searchTitle{
+}
+.searchTitle{
     display: flex;
     justify-content: center;
     color: #001219;
@@ -53,14 +154,14 @@ body{
     font-family: 'Bebas Neue'; 
     padding-top: 3%;
     grid-area:searchTitle ;
-  }
-  .searchBar{
+}
+.searchBar{
     display: grid;
     grid-template-columns:9fr 3fr 1fr;
     padding-top: 3%;
     grid-area: searchBar;
-  }
-  .globalSearchInput{
+}
+.globalSearchInput{
     box-shadow: inset #94D2BD 0 0 0 3px;
     background-color: #E9D8A6;
     border: 0;
@@ -70,17 +171,17 @@ body{
     height: 40px;
     font-size: 16px;
     transition: all .2s ease;
-  }
-  .globalSearchInput:hover{
+}
+.globalSearchInput:hover{
     box-shadow: #0A9396 0 0 0 3px;
     background: #EE9B00;
-  }
-  .globalSearchInput:focus{
+}
+.globalSearchInput:focus{
     background: #EE9B00;
     outline: 0;
     box-shadow: #005F73 0 0 0 3px;
-  }
-  .globalSearchBtn{
+}
+.globalSearchBtn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,73 +193,99 @@ body{
     color: #E9D8A6;
     background: linear-gradient(90deg,#94D2BD 0,#0A9396 100%);
     border-radius: 25px;
-  }
-  .globalSearchBtn , .globalSearchBtn:hover , .globalSearchBtn:active {
+}
+.globalSearchBtn , .globalSearchBtn:hover , .globalSearchBtn:active {
     border: none;
     outline:0;
-  }
-  .globalSearchBtn:hover{ box-shadow: 0 0 0 2px #005F73;}
-  .globalSearchBtn:active{box-shadow: 0 0 0 2px #EE9B00;}
-  .spinner-border{
+}
+.globalSearchBtn:hover{ box-shadow: 0 0 0 2px #005F73;}
+.globalSearchBtn:active{box-shadow: 0 0 0 2px #EE9B00;}
+.spinner-border{
     justify-self: center;
     align-self: center;
     margin-left: 14px;
-  }
-  .spinner-border{
+}
+.spinner-border{
     color:#001219;
-  }
-  .searchList{
+}
+.searchList{
     grid-area:searchList;
-  }
-  #results{
+}
+#results{
     display: flex;
     flex-direction: column;
     padding-top: 10px;
     max-height: 400px; 
    overflow: auto;
-  }
-  .scroll::-webkit-scrollbar {
-      width: 12px;
-  }
-  .scroll::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      width: 12px;
-      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-  }
-  li{
+}
+.scroll::-webkit-scrollbar {
+    width: 12px;
+}
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    width: 12px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+li{
     display: flex;
     list-style: none;
     padding: 10px;
     border-bottom: 1px solid #001219;
     transition: all 0.15s ease-in;
-  }
-  li:last-child{
+}
+li:last-child{
     padding-bottom: 0px;
-  }
-  li > img{
+}
+li > img{
     max-width: 60px;
     height: 40px;
-  }
-  li:nth-child(-n+5):hover {
+}
+li:nth-child(-n+5):hover {
     background-color: #94D2BD;
     cursor: pointer;
-  }
-  li:nth-last-child(-n+5):hover{
+}
+li:nth-last-child(-n+5):hover{
     background-color: #EE9B00 ;
     cursor: pointer;
-  }
-  a , a:hover , a:active{
+}
+a , a:hover , a:active{
     text-decoration: none;
     color:#001219;
-  }
-  li:nth-child(-n+5):active{
+}
+li:nth-child(-n+5):active{
     background-color:#005F73 ;
-  }
-  li:nth-last-child(-n+5):active{
+}
+li:nth-last-child(-n+5):active{
     background-color: #ae1f127a;
-  }
+}
+.compareBtnContainer{
+    margin-left: auto;
+}
+.compareBtn{
+    padding:  2px 8px;
+    background: #EE9B00;
+    color: #005F73;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: all 0.15s ease-in;
+    z-index: 1;
+}
+.compareBtn:hover{
+    color: #E9D8A6;
+    background: #AE2012; 
+    bottom: -2px;
+}
+.compareBtn:active{
+    color: #E9D8A6;
+    text-decoration: none;
+    background: #005F73;
+    transform: translateY(2px);
+    bottom: 0px;
+}
 
-/*marquee effect*/
 .marqueeContainer {
     overflow: hidden;
     background-color: #AE2012;
@@ -201,8 +328,6 @@ body{
     background-color:#ae1f127a;
     cursor: pointer;
 }
-
-  
 @keyframes marquee {
     0% {
       transform: translateX(0);
@@ -211,4 +336,3 @@ body{
       transform: translateX(-100%);
     }
 }
-

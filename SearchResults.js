@@ -66,8 +66,9 @@ class SearchResult {
     const inputValue = this.searchInput.value;
     const companyName = profile.companyName;
     const symbol = data.symbol;
+    
   
-    const regExp = new RegExp(inputValue, "i"); 
+    const regExp = new RegExp(inputValue, "i");
     const highlightedCompanyName = companyName.replace(regExp, `<span style="background-color: yellow">$&</span>`); 
     const highlightedSymbol = symbol.replace(regExp, `<span style="background-color: yellow">$&</span>`);
   
@@ -88,10 +89,10 @@ class SearchResult {
     }
   
     compareButton.addEventListener("click", () => {
-      console.log(data); 
+      comparisonList.add(data);
     });
   
-    compareButtonContainer.appendChild(compareButton); 
+    compareButtonContainer.appendChild(compareButton);
     liElement.append(imgElement, aElement, spanElement, compareButtonContainer); 
     this.searchList.appendChild(liElement);
   }
@@ -116,7 +117,6 @@ class SearchResult {
             li.remove();
             return;
           }
-          
           const highlightedCompanyName = companyName.replace(regExp, `<span style="background-color: yellow">$&</span>`); 
           const highlightedSymbol = symbol.replace(regExp, `<span style="background-color: yellow">$&</span>`);
           a.innerHTML = ` ${highlightedCompanyName} (${highlightedSymbol})`;
@@ -126,3 +126,56 @@ class SearchResult {
     this.searchButton.addEventListener("click", this.handleSearchClick.bind(this));
   }
 }
+
+
+class ComparisonList {
+  constructor() {
+    this.companies = [];
+    this.listElement = document.getElementById("compareCompanies");
+    this.compareButton = document.getElementById("compareBtn");
+    this.compareButton.addEventListener("click", () => {
+      this.compare();
+    });
+  }
+
+  add(company) {
+    if (!this.companies.includes(company)) {
+      this.companies.push(company);
+      const li = document.createElement("li");
+      li.textContent = company.symbol;
+      const button = document.createElement("button");
+      button.classList.add("removeBtn");
+      button.textContent = "X";
+      button.addEventListener("click", () => {
+        this.remove(company);
+      });
+      li.appendChild(button);
+      this.listElement.appendChild(li);
+    }
+  }
+
+  remove(company) {
+    const lis = this.listElement.querySelectorAll("li");
+    for (let i = 0; i < lis.length; i++) {
+      const li = lis[i];
+      if (li.textContent.includes(company.symbol)) {
+        li.remove();
+        const index = this.companies.indexOf(company);
+        if (index !== -1) {
+          this.companies.splice(index, 1);
+        }
+      }
+    }
+  }
+
+  compare() {
+    if (this.companies.length > 1) {
+      const symbols = this.companies.map(company => company.symbol);
+      const url = `compare.html?symbols=${symbols.join(",")}`;
+      window.location.href = url;
+    }
+  }
+
+}
+
+const comparisonList = new ComparisonList();

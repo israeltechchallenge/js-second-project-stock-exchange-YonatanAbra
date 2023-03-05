@@ -13,7 +13,15 @@
 <body>
 
   <div class="marqueeContainer">
-    <ul class="marqueeList" id="tickerList"></ul>
+    <ul class="marqueeList" id="tickerList">
+    </ul>
+  </div>
+  <div id="compareContainer" class="compareContainer">
+    <div class="compareGridOne">
+      <h3>Selected Companies:</h3>
+      <button id="compareBtn" class="compareBtnBig">Compare</button>
+    </div>
+    <ul class="compareCompanies" id="compareCompanies"></ul>
   </div>
   <div id="form"></div>
   <div id="results"></div>
@@ -29,6 +37,6 @@
     const form = new SearchForm(document.getElementById('form'));
     const results = new SearchResult(document.getElementById('results'));
   })()
-</script>
+  </script>
 </body>
 </html>
