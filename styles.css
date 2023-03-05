@@ -8,11 +8,11 @@ body{
     background-image: linear-gradient(62deg, #0A9396 0%, #94D2BD 100%);
     background-repeat: no-repeat;
     background-size: cover;
-}
-.disappear{
+  }
+  .disappear{
     display: none;
-}
-.searchContBorder{
+  }
+  .searchContBorder{
     grid-template-columns: 1;
     grid-template-areas: 
     "searchBarCont"
@@ -23,7 +23,7 @@ body{
     padding-left: 5%;
     padding-right: 5%;
     padding-bottom: 2%;
-
+  
     align-items: center;
     background: linear-gradient(0deg, #005F73, #0A9396, #94D2BD, #E9D8A6,#EE9B00, #CA6702, #AE2012);
     box-sizing: border-box;
@@ -31,20 +31,20 @@ body{
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
     transition: all ease 0.1s;
     transition: 0.5s all linear;
-}
-.searchContBorder:hover{
+  }
+  .searchContBorder:hover{
     transform: scale(1.05);
     box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
-}
-.searchContainer{
+  }
+  .searchContainer{
     display: grid;
     grid-template-rows: 1fr, 1fr;
     grid-template-areas:
     "searchTitle"
     "searchBar";
     grid-area: searchBarCont;
-}
-.searchTitle{
+  }
+  .searchTitle{
     display: flex;
     justify-content: center;
     color: #001219;
@@ -53,14 +53,14 @@ body{
     font-family: 'Bebas Neue'; 
     padding-top: 3%;
     grid-area:searchTitle ;
-}
-.searchBar{
+  }
+  .searchBar{
     display: grid;
     grid-template-columns:9fr 3fr 1fr;
     padding-top: 3%;
     grid-area: searchBar;
-}
-.globalSearchInput{
+  }
+  .globalSearchInput{
     box-shadow: inset #94D2BD 0 0 0 3px;
     background-color: #E9D8A6;
     border: 0;
@@ -70,17 +70,17 @@ body{
     height: 40px;
     font-size: 16px;
     transition: all .2s ease;
-}
-.globalSearchInput:hover{
+  }
+  .globalSearchInput:hover{
     box-shadow: #0A9396 0 0 0 3px;
     background: #EE9B00;
-}
-.globalSearchInput:focus{
+  }
+  .globalSearchInput:focus{
     background: #EE9B00;
     outline: 0;
     box-shadow: #005F73 0 0 0 3px;
-}
-.globalSearchBtn{
+  }
+  .globalSearchBtn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,60 +92,71 @@ body{
     color: #E9D8A6;
     background: linear-gradient(90deg,#94D2BD 0,#0A9396 100%);
     border-radius: 25px;
-}
-.globalSearchBtn , .globalSearchBtn:hover , .globalSearchBtn:active {
+  }
+  .globalSearchBtn , .globalSearchBtn:hover , .globalSearchBtn:active {
     border: none;
     outline:0;
-}
-.globalSearchBtn:hover{ box-shadow: 0 0 0 2px #005F73;}
-.globalSearchBtn:active{box-shadow: 0 0 0 2px #EE9B00;}
-.spinner-border{
+  }
+  .globalSearchBtn:hover{ box-shadow: 0 0 0 2px #005F73;}
+  .globalSearchBtn:active{box-shadow: 0 0 0 2px #EE9B00;}
+  .spinner-border{
     justify-self: center;
     align-self: center;
     margin-left: 14px;
-}
-.spinner-border{
+  }
+  .spinner-border{
     color:#001219;
-}
-.searchList{
+  }
+  .searchList{
+    grid-area:searchList;
+  }
+  #results{
     display: flex;
     flex-direction: column;
     padding-top: 10px;
-    grid-area:searchList;
-    max-height: 400px; /* Set the height of the list container */
-    overflow: auto; /* Set the overflow property to scroll */
+    max-height: 400px; 
+   overflow: auto;
   }
-li{
+  .scroll::-webkit-scrollbar {
+      width: 12px;
+  }
+  .scroll::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      width: 12px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  }
+  li{
+    display: flex;
     list-style: none;
     padding: 10px;
     border-bottom: 1px solid #001219;
-}
-li:last-child{
+    transition: all 0.15s ease-in;
+  }
+  li:last-child{
     padding-bottom: 0px;
-}
-li > img{
+  }
+  li > img{
     max-width: 60px;
     height: 40px;
-}
-li:nth-child(-n+5):hover {
+  }
+  li:nth-child(-n+5):hover {
     background-color: #94D2BD;
     cursor: pointer;
-}
-li:nth-last-child(-n+5):hover{
+  }
+  li:nth-last-child(-n+5):hover{
     background-color: #EE9B00 ;
     cursor: pointer;
-}
-a , a:hover , a:active{
+  }
+  a , a:hover , a:active{
     text-decoration: none;
     color:#001219;
-}
-li:nth-child(-n+5):active{
+  }
+  li:nth-child(-n+5):active{
     background-color:#005F73 ;
-}
-li:nth-last-child(-n+5):active{
+  }
+  li:nth-last-child(-n+5):active{
     background-color: #ae1f127a;
-}
-
+  }
 
 /*marquee effect*/
 .marqueeContainer {
