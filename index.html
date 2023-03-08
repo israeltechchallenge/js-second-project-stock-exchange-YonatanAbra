@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="styles.css" >
+    <title>Stock Exchange</title>
+</head>
+<body>
+
+  <div class="marqueeContainer">
+    <ul class="marqueeList" id="tickerList">
+    </ul>
+  </div>
+  <div id="compareContainer" class="compareContainer">
+    <div class="compareGridOne">
+      <h3>Selected Companies:</h3>
+      <button id="compareBtn" class="compareBtnBig">Compare</button>
+    </div>
+    <ul class="compareCompanies" id="compareCompanies"></ul>
+  </div>
+  <div id="form"></div>
+  <div id="results"></div>
+
+  <script  src="marquee.js"></script>
+  <script src="SearchResults.js" ></script>
+  <script  src="SearchForm.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  (async function () {
+    const marquee = new Marquee(document.getElementById('tickerList'));
+    marquee.fetchMarquee();
+    const form = new SearchForm(document.getElementById('form'));
+    const results = new SearchResult(document.getElementById('results'));
+  })()
+  </script>
+</body>
+</html>
